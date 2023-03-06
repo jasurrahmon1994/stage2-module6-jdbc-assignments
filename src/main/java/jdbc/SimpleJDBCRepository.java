@@ -28,18 +28,17 @@ public class SimpleJDBCRepository {
     private static final String findAllUserSQL = "select * from myusers";
 
     public Long createUser() {
-        Long res;
         connection = new CustomConnector().getConnection(CustomDataSource.getInstance().getUrl(), CustomDataSource.getInstance().getName(), CustomDataSource.getInstance().getPassword());
         try {
             ps = connection.prepareStatement(createUserSQL);
             ps.setString(1, "Jasur");
             ps.setString(2, "Rahmonov");
             ps.setLong(3, 27L);
-            res = (long) ps.executeUpdate();
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return res;
+        return 1L;
     }
 
     public User findUserById(Long userId) {
